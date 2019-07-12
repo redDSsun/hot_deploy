@@ -12,7 +12,7 @@ public class DeployManagement {
     private DataOutputStream dos;
     public DeployManagement() throws IOException {
 
-        client = new Socket("localhost", 8999);
+//        client = new Socket("localhost", 8999);
     }
 
     public void sendFile(String url) throws IOException {
