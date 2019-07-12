@@ -32,15 +32,14 @@ public class CommandProcesseer {
             while ((line = reader.readLine()) != null) {
                 System.out.println("====================");
                 System.out.println(line);
-                if (line.contains("deleted:")){
-                    System.out.println(line.trim().split("deleted:")[0].trim());
-                    deletedFiles.add(line.trim().split("deleted:")[0].trim());
+                if (line.contains("deleted")){
+                    deletedFiles.add(line.split(":")[1]);
                 }
-                if (line.contains("modified:")){
-                    modifiedFiles.add(line.trim().split("modified:")[0].trim());
+                if (line.contains("modified")){
+                    modifiedFiles.add(line.split(":")[1]);
                 }
-                if (line.contains("new file:")){
-                    newFiles.add(line.trim().split("new file:")[0].trim());
+                if (line.contains("new file")){
+                    newFiles.add(line.split(":")[1]);
                 }
                 output.append(line + "\n");
 //                System.out.println(output.toString());
