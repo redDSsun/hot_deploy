@@ -47,5 +47,9 @@
       <add-to-group group-id="HelpMenu" anchor="first"/>
     </action>
 
+
+    <action id="deploy_connect" class="deploy.DeployConnect" text="Deploy connect">
+      <add-to-group group-id="HelpMenu" anchor="before" relative-to-action="GotoAction"/>
+    </action>
   </actions>
 </idea-plugin>
