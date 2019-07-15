@@ -17,11 +17,10 @@ public class CommandProcesseer {
         if (!currentProjectpath.endsWith("/")){
             currentProjectpath += "/";
         }
-        DeployFile deployFile = new DeployFile();
         ArrayList<DeployFile> deployFiles = new ArrayList<>();
 
         File dir = new File(currentProjectpath);
-        String command = "git status";
+        String command = COMMAND;
 
         StringBuilder output = new StringBuilder();
         try {
@@ -35,46 +34,24 @@ public class CommandProcesseer {
                 if (line.contains("Changes not staged for commit:")){
                     break;
                 }
-                System.out.println("====================");
-                System.out.println(line);
                 if (line.contains(DELETE_STATUS) || line.contains(MODIFY_STATUS) || line.contains(NEWFILE_STATUS)){
                     String status = getStatus(line);
                     String relativePath = getRelativePath(line);
                     File file = new File(currentProjectpath + relativePath);
+                    DeployFile deployFile = new DeployFile();
                     deployFile.setFile(file);
-                    deployFile.setOperation(OPERATION_STATUS_MAP.get(status));
+                    deployFile.setOperation(STATUS_OPERATION_MAP.get(status));
                     deployFile.setRelativepath(relativePath);
                     deployFiles.add(deployFile);
                 }
-//                if (line.contains(MODIFY_STATUS)){
-//                    String relativePath = getRelativePath(line);
-//                    File modifiedFile = new File(currentProjectpath + relativePath);
-//                    deployFile.setFile(modifiedFile);
-//                    deployFile.setOperation(MODIFY_OPERATION);
-//                    deployFile.setRelativepath(relativePath);
-//                    deployFiles.add(deployFile);
-//                }
-//                if (line.contains(NEWFILE_STATUS)){
-//                    String relativePath = getRelativePath(line);
-//                    File newFile = new File(currentProjectpath + relativePath);
-//                    deployFile.setFile(newFile);
-//                    deployFile.setOperation(NEWFILE_OPERATION);
-//                    deployFile.setRelativepath(relativePath);
-//                    deployFiles.add(deployFile);
-//                }
-                output.append(line + "\n");
-//                System.out.println(output.toString());
             }
 
             int exitVal = process.waitFor();
             if (exitVal == 0) {
-                Messages.showInfoMessage(output.toString(),"modified files");
-                for (DeployFile file:deployFiles
-                     ) {
-                    System.out.println(file.getFile().length());
-                    System.out.println(file.getOperation());
-                    System.out.println(file.getRelativepath());
+                for (DeployFile file : deployFiles) {
+                    output.append(file.getRelativepath() + "\n");
                 }
+                Messages.showInfoMessage(output.toString(),"files need deploy");
             } else {
                 Messages.showInfoMessage(output.toString(),"error");
             }

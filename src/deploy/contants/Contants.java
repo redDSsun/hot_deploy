@@ -3,6 +3,7 @@ package deploy.contants;
 import java.util.HashMap;
 
 public class Contants {
+    public final static String COMMAND = "git status";
     public final static String DELETE_OPERATION = "delete";
     public final static String DELETE_STATUS = "deleted";
 
@@ -12,11 +13,11 @@ public class Contants {
     public final static String MODIFY_OPERATION = "modify";
     public final static String MODIFY_STATUS = "modified";
 
-    public final static HashMap<String, String> OPERATION_STATUS_MAP= new HashMap();
+    public final static HashMap<String, String> STATUS_OPERATION_MAP= new HashMap();
     static {
-        OPERATION_STATUS_MAP.put(DELETE_OPERATION, DELETE_OPERATION);
-        OPERATION_STATUS_MAP.put(NEWFILE_OPERATION, NEWFILE_STATUS );
-        OPERATION_STATUS_MAP.put(MODIFY_OPERATION, MODIFY_STATUS );
+        STATUS_OPERATION_MAP.put(DELETE_STATUS, DELETE_OPERATION);
+        STATUS_OPERATION_MAP.put(NEWFILE_STATUS, NEWFILE_OPERATION );
+        STATUS_OPERATION_MAP.put(MODIFY_STATUS, MODIFY_OPERATION );
     }
 
 

@@ -3,7 +3,7 @@ package deploy.pojo;
 import java.io.File;
 import java.io.Serializable;
 
-public class DeployFile implements Serializable {
+public class DeployFile implements Serializable{
     private File file;
 
     private String operation;

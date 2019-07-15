@@ -9,12 +9,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import deploy.pojo.DeployFile;
 import deploy.utils.CommandProcesseer;
-import deploy.utils.JsonUtil;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class DeployAction extends AnAction {
     @Override
@@ -25,10 +22,13 @@ public class DeployAction extends AnAction {
         ArrayList<DeployFile> needDeployFiles = new CommandProcesseer().getModifiedFiles(currenProjectPath);
         Application application = ApplicationManager.getApplication();
         DeployManagement deployManagement = application.getComponent(DeployManagement.class);
+        if(deployManagement.getConnect() == null){
+            Messages.showErrorDialog("Please connect first", "error");
+        }
 //        String filePath = (String) Messages.showInputDialog("info","file path: ", Messages.getQuestionIcon());
         try {
 
-            deployManagement.sendFile(JsonUtil.toJson(needDeployFiles));
+            deployManagement.sendFile(needDeployFiles);
         } catch (IOException e) {
             e.printStackTrace();
         }
